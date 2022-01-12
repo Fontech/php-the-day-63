@@ -40,8 +40,20 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    // https://github.com/nuxt-community/apollo-module
+    '@nuxtjs/apollo',
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Apollo Configuration
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: process.env.GRAPHQL_HTTP_ENDPOINT,
+      },
+    },
+  },
 }
