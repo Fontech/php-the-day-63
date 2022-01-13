@@ -5,6 +5,17 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  // Runtime Config: https://nuxtjs.org/guide/runtime-config
+  publicRuntimeConfig: {
+    graphql: {
+      endpoint: process.env.GRAPHQL_HTTP_ENDPOINT,
+    },
+    pusher: {
+      key: process.env.PUSHER_APP_KEY,
+      cluster: process.env.PUSHER_APP_CLUSTER,
+    },
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'nuxt',
@@ -51,9 +62,7 @@ export default {
   // Apollo Configuration
   apollo: {
     clientConfigs: {
-      default: {
-        httpEndpoint: process.env.GRAPHQL_HTTP_ENDPOINT,
-      },
+      default: '~/graphql/clients/pusher.ts',
     },
   },
 }
