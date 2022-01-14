@@ -1,0 +1,20 @@
+extend type Query {
+    posts: [Post!]! @all
+}
+
+extend type Mutation {
+    createPost(input: CreatePostInput! @spread): Post! @create
+}
+
+type Post {
+    id: ID!
+    name: String!
+    content: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+input CreatePostInput {
+    name: String!
+    content: String!
+}
