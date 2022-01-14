@@ -13,6 +13,9 @@ export default {
     pusher: {
       key: process.env.PUSHER_APP_KEY,
       cluster: process.env.PUSHER_APP_CLUSTER,
+      tls: process.env.PUSHER_APP_TLS,
+      host: process.env.PUSHER_APP_HOST,
+      port: process.env.PUSHER_APP_PORT,
     },
   },
 

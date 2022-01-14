@@ -78,6 +78,9 @@ export default ({ $config }: Context) => {
 
   const pusher = new Pusher($config.pusher.key, {
     cluster: $config.pusher.cluster,
+    wsHost: $config.pusher.host,
+    wsPort: $config.pusher.port,
+    forceTLS: $config.pusher.tls || false,
     authEndpoint: `${$config.graphql.endpoint}/subscriptions/auth`
   })
 
