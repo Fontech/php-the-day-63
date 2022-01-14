@@ -3,7 +3,11 @@ extend type Query {
 }
 
 extend type Mutation {
-    createPost(input: CreatePostInput! @spread): Post! @create
+    createPost(input: CreatePostInput! @spread): Post! @create @broadcast(subscription: "postCreated")
+}
+
+extend type Subscription {
+    postCreated: Post @subscription(class: "PostCreated")
 }
 
 type Post {
