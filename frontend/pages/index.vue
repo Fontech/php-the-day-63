@@ -7,12 +7,16 @@
 
 <script lang="ts">
   import { defineComponent, ref } from '@nuxtjs/composition-api'
-  import { useQuery } from '@vue/apollo-composable'
+  import { useQuery, useSubscription } from '@vue/apollo-composable'
   import { gql } from 'graphql-tag'
   import type { Post } from '~/types'
 
   interface PostsQuery {
     posts: Post[]
+  }
+
+  interface PostCreatedSubscription {
+    postCreated: Post
   }
 
   export default defineComponent({
@@ -35,6 +39,26 @@
       function handleSubmitted(post: Post) {
         posts.value.push(post)
       }
+
+      const { onResult: onSubscriptionResult } = useSubscription<PostCreatedSubscription>(gql`
+        subscription {
+          postCreated {
+            id
+            name
+            content
+          }
+        }
+      `)
+
+      onSubscriptionResult((result) => {
+        const post = result!.data!.postCreated
+
+        if (posts.value.find(({ id }) => id === post.id)) {
+          return
+        }
+
+        posts.value.push(post)
+      })
 
       return { posts, handleSubmitted }
     }
